@@ -11,7 +11,9 @@ const maps     = require('gulp-sourcemaps');
 const sass     = require('gulp-sass');
 const rename   = require('gulp-rename');
 const del      = require('del');
+const livereload = require('gulp-livereload');
 
+livereload({start:true});
 
 //******** JS *******//
 
@@ -45,6 +47,7 @@ gulp.task('styles', ['compileSass'], function(){
         .pipe(cssmin())
         .pipe(rename('all.min.css'))
         .pipe(gulp.dest('./dist/styles'))
+        .pipe(livereload());
 });
 
 
@@ -66,6 +69,7 @@ gulp.task('clean', function(){
 //****** WATCH & SERVE *******//
 
 gulp.task('watchFiles', function(){
+  // livereload.listen();
   gulp.watch('sass/**/*.scss', ['compileSass'])
 })
 
