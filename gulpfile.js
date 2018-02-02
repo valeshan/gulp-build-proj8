@@ -2,15 +2,15 @@
 
 //******* DEPENDENCIES *******//
 
-const   gulp = require('gulp');
-const uglify = require('gulp-uglify');
-const   maps = require('gulp-sourcemaps');
-const concat = require('gulp-concat');
-const sass   = require('gulp-sass');
-const rename = require('gulp-rename');
-const cssmin = require('gulp-cssmin');
-const del = require('del');
+const gulp     = require('gulp');
+const uglify   = require('gulp-uglify');
+const cssmin   = require('gulp-cssmin');
 const imagemin = require('gulp-imagemin');
+const concat   = require('gulp-concat');
+const maps     = require('gulp-sourcemaps');
+const sass     = require('gulp-sass');
+const rename   = require('gulp-rename');
+const del      = require('del');
 
 
 //******** JS *******//
@@ -47,6 +47,7 @@ gulp.task('styles', ['compileSass'], function(){
         .pipe(gulp.dest('./dist/styles'))
 });
 
+
 //****** IMAGES ******//
 
 gulp.task('images', function(){
@@ -62,6 +63,14 @@ gulp.task('clean', function(){
   del('dist/*')
 })
 
+//****** WATCH & SERVE *******//
+
+gulp.task('watchFiles', function(){
+  gulp.watch('sass/**/*.scss', ['compileSass'])
+})
+
+gulp.task('serve', ['watchFiles']);
+
 //****** BUILD ******//
 
 gulp.task('build',['clean', 'scripts', 'styles', 'images'], function(){
@@ -70,5 +79,5 @@ gulp.task('build',['clean', 'scripts', 'styles', 'images'], function(){
 })
 
 gulp.task('default', ['clean'], function(){
-  gulp.start('build')
+  gulp.start(['build', 'serve'])
 })
