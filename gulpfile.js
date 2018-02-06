@@ -12,8 +12,7 @@ const sass     = require('gulp-sass');
 const rename   = require('gulp-rename');
 const del      = require('del');
 const livereload = require('gulp-livereload');
-
-livereload({start:true});
+const connect = require('gulp-connect');
 
 //******** JS *******//
 
@@ -47,7 +46,7 @@ gulp.task('styles', ['compileSass'], function(){
         .pipe(cssmin())
         .pipe(rename('all.min.css'))
         .pipe(gulp.dest('./dist/styles'))
-        .pipe(livereload());
+        .pipe(connect.reload());
 });
 
 
@@ -63,13 +62,12 @@ gulp.task('images', function(){
 //******* CLEAN *****//
 
 gulp.task('clean', function(){
-  del('dist/*')
-})
+  del('dist/*');
+});
 
 //****** WATCH & SERVE *******//
 
 gulp.task('watchFiles', function(){
-  // livereload.listen();
   gulp.watch('sass/**/*.scss', ['compileSass'])
 })
 
@@ -82,6 +80,15 @@ gulp.task('build',['clean', 'scripts', 'styles', 'images'], function(){
         .pipe(gulp.dest('dist'))
 })
 
-gulp.task('default', ['clean'], function(){
+gulp.task('default', ['clean', 'webserver'], function(){
   gulp.start(['build', 'serve'])
 })
+
+
+//******** RUN SERVER **********//
+
+gulp.task('webserver', function() {
+  connect.server({
+    livereload: true
+  });
+});
