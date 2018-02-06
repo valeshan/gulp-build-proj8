@@ -68,6 +68,7 @@ gulp.task('clean', function(){
 //****** WATCH & SERVE *******//
 
 gulp.task('watchFiles', function(){
+  livereload.listen();
   gulp.watch('sass/**/*.scss', ['compileSass'])
 })
 
