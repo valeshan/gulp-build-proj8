@@ -46,7 +46,7 @@ gulp.task('styles', ['compileSass'], function(){
         .pipe(cssmin())
         .pipe(rename('all.min.css'))
         .pipe(gulp.dest('./dist/styles'))
-        .pipe(connect.reload());
+        .pipe(livereload());
 });
 
 
