@@ -2,19 +2,20 @@
 
 //******* DEPENDENCIES *******//
 
-const gulp     = require('gulp');
-const uglify   = require('gulp-uglify');
-const cssmin   = require('gulp-cssmin');
-const imagemin = require('gulp-imagemin');
-const concat   = require('gulp-concat');
-const maps     = require('gulp-sourcemaps');
-const sass     = require('gulp-sass');
-const rename   = require('gulp-rename');
-const del      = require('del');
-const livereload = require('gulp-livereload');
-const connect = require('gulp-connect');
+const gulp        = require('gulp');
+const uglify      = require('gulp-uglify');
+const cssmin      = require('gulp-cssmin');
+const imagemin    = require('gulp-imagemin');
+const concat      = require('gulp-concat');
+const maps        = require('gulp-sourcemaps');
+const sass        = require('gulp-sass');
+const rename      = require('gulp-rename');
+const del         = require('del');
+const livereload  = require('gulp-livereload');
+const connect     = require('gulp-connect');
 const browserSync = require('browser-sync').create();
-const runSeq = require('run-sequence');
+const runSeq      = require('run-sequence');
+
 
 //******** JS *******//
 
@@ -77,46 +78,15 @@ gulp.task('clean', function(){
   del('dist/*');
 });
 
-//****** WATCH & SERVE *******//
+//****** BUILD & RUN ******//
 
-// gulp.task('watchFiles', function(){
-//   // livereload.listen();
-//   gulp.watch('sass/**/*.scss', ['compileSass'])
-// })
-
-// gulp.task('serve', ['watchFiles'], function(){
-//   browserSync.init({
-//     server:"./dist"
-//   });
-// });
-
-//****** BUILD ******//
-
-gulp.task('build', function(){
+gulp.task('build',['clean'], function(){
   return runSeq('clean',['scripts', 'styles', 'images'], 'browser-sync');
 })
 
-gulp.task('default', ['clean'], function(){
+gulp.task('default', function(){
   gulp.start(['build']);
-  gulp.watch('./sass/**/*.scss', ['styles']).on('change', browserSync.reload);
-  connect.server({port:3001});
+  browserSync.init({ server: { baseDir: "./" } });
+  gulp.watch('./sass/**/*.scss', ['styles']);
+  connect.server({port:3000});
 })
-
-
-//******** RUN SERVER **********//
-
-gulp.task('browser-sync', function(){
-  browserSync.init({
-    server:{
-      baseDir: "./dist",
-      proxy: "localhost:3000"
-    }
-  })
-})
-
-
-// gulp.task('webserver', function() {
-//   connect.server({
-//     livereload: true
-//   });
-// });
