@@ -14,5 +14,5 @@ This automatically serves and compiles the files onto port `8080`. `Livereload` 
 
 Then visit:
 ```
-localhost:8080
+localhost:3000
 ```
