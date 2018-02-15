@@ -10,7 +10,7 @@ In the CLI, enter:
 ```
 gulp
 ```
-This automatically serves and compiles the files onto port `8080`. `Livereload` is listening to changes in `.scss` files located in the `sass` folder.
+This automatically serves and compiles the files onto port `3000`. `Browser-sync` is listening to changes in `.scss` files located in the `sass` folder.
 
 Then visit:
 ```
