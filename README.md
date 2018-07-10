@@ -1,6 +1,6 @@
 # GULP PROJECT 8
 
-This project uses gulp to serve, concat (sass and js files) and minify files(css, js and img files).
+This project uses gulp to serve, concat (sass and js files) and minify files(css, js and image files).
 
 Download necessary dependencies with:
 ```
